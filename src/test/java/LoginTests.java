@@ -5,15 +5,14 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends BaseTest {
 
-    @Test (enabled = true, priority = 0, description = "Login with invalid email and valid password")
-    public void loginInvalidEmailValidPasswordTest(){
+    @Test (dataProvider = "IncorrectLoginData", dataProviderClass = BaseTest.class, enabled = true, priority = 0, description = "Login with invalid email and valid password")
+    public void loginInvalidEmailValidPasswordTest(String username, String password){
 
-        navigateToPage();
-        provideEmail("invalid@class.com");
-        providePassword("te$t$tudent");
+        provideEmail(username);
+        providePassword(password);
         clickSubmit();
 
-        Assert.assertEquals(driver.getCurrentUrl(), url); // https://qa.koel.app/
+        Assert.assertEquals(driver.getCurrentUrl(), url); //https://qa.koel.app/
     }
 
     @Test (enabled = true, priority = 1, description = "Login with valid email and valid password")
