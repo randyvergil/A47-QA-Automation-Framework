@@ -1,6 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pagefactory.HomePage;
@@ -9,43 +7,44 @@ import pagefactory.LoginPage;
 
 public class LoginTests extends BaseTest {
 
+    //Fluent interfaces example
     @Test (dataProvider = "IncorrectLoginData", dataProviderClass = BaseTest.class, enabled = true, priority = 0, description = "Login with invalid email and valid password")
     public void loginInvalidEmailValidPasswordTest(String username, String password){
 
-        provideEmail(username);
-        providePassword(password);
-        clickSubmit();
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.provideEmail(username)
+                 .providePassword(password)
+                 .clickSubmit();
 
         Assert.assertEquals(driver.getCurrentUrl(), url); //https://qa.koel.app/
     }
+    @Test
+    public void loginValidEmailPasswordTest () {
 
-    @Test (enabled = true, priority = 1, description = "Login with valid email and valid password")
-    public void loginValidEmailPasswordTest(){
+        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
 
-        navigateToPage();
-        provideEmail("demo@class.com");
-        providePassword("te$t$tudent");
-        clickSubmit();
-        isAvatarDisplayed();
+        loginPage.provideEmail("demo@class.com")
+                 .providePassword("te$t$tudent")
+                 .clickSubmit();
+
+        Assert.assertTrue(homePage.isAvatarDisplayed());
     }
 
     @Test (enabled = true, priority = 3, description = "Login with valid email and empty password")
     public void loginValidEmailEmptyPasswordTest() {
 
-        navigateToPage();
-        provideEmail("demo@class.com");
-        providePassword("");
-        clickSubmit();
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.provideEmail("demo@class.com")
+                 .providePassword("te$t$tudent")
+                 .clickSubmit();
 
         Assert.assertEquals(driver.getCurrentUrl(), url); //https://qa.koel.app/
     }
-    public static void isAvatarDisplayed() {
-        WebElement avatarIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img[class='avatar']")));
-        Assert.assertTrue(avatarIcon.isDisplayed());
-    }
 
 
-    //Fluent interfaces example
     @Test
     public void LoginValidEmailPasswordTest () {
 
