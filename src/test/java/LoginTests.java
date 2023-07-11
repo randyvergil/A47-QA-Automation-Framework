@@ -8,13 +8,13 @@ import pagefactory.LoginPage;
 public class LoginTests extends BaseTest {
 
     //Fluent interfaces example
-    @Test (dataProvider = "IncorrectLoginData", dataProviderClass = BaseTest.class, enabled = true, priority = 0, description = "Login with invalid email and valid password")
-    public void loginInvalidEmailValidPasswordTest(String username, String password){
+    @Test
+    public void loginInvalidEmailValidPasswordTest(){
 
         LoginPage loginPage = new LoginPage(driver);
 
-        loginPage.provideEmail(username)
-                 .providePassword(password)
+        loginPage.provideEmail("invalid@email.com")
+                 .providePassword("te$t$tudent")
                  .clickSubmit();
 
         Assert.assertEquals(driver.getCurrentUrl(), url); //https://qa.koel.app/
@@ -38,7 +38,7 @@ public class LoginTests extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.provideEmail("demo@class.com")
-                 .providePassword("te$t$tudent")
+                 .providePassword("")
                  .clickSubmit();
 
         Assert.assertEquals(driver.getCurrentUrl(), url); //https://qa.koel.app/
