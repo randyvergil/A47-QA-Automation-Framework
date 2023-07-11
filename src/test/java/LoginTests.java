@@ -32,7 +32,7 @@ public class LoginTests extends BaseTest {
         Assert.assertTrue(homePage.isAvatarDisplayed());
     }
 
-    @Test (enabled = true, priority = 3, description = "Login with valid email and empty password")
+    @Test
     public void loginValidEmailEmptyPasswordTest() {
 
         LoginPage loginPage = new LoginPage(driver);
@@ -44,23 +44,9 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), url); //https://qa.koel.app/
     }
 
-
-    @Test
-    public void LoginValidEmailPasswordTest () {
-
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-
-        loginPage.provideEmail("demo@class.com")
-                 .providePassword("te$t$tudent")
-                 .clickSubmit();
-
-        Assert.assertTrue(homePage.isAvatarDisplayed());
-    }
-
     //    OR
     @Test
-    public void LoginEmptyEmailPasswordTest() {
+    public void loginEmptyEmailPasswordTest() {
 
         LoginPage loginPage = new LoginPage(driver);
 
@@ -68,5 +54,4 @@ public class LoginTests extends BaseTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), url);
     }
-
 }
