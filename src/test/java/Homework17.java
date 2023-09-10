@@ -13,7 +13,7 @@ public class Homework17 extends BaseTest{
     provideEmail("randy.davila@testpro.io");
     providePassword("te$t$tudent");
     clickSubmit();
-    searchSong(songTitleKeyword: "Lament");
+    searchSong("Lament");
     clickViewAllBtn();
     selectFirstSongResult();
     clickAddBtn();
