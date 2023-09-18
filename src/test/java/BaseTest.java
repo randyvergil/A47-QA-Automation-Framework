@@ -8,14 +8,34 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import java.net.URL;
 import java.time.Duration;
+
+import static java.sql.DriverManager.getDriver;
+
 
 public class BaseTest {
 
     public static WebDriver driver = null;
     public static String url = "https://qa.koel.app/";
 
+    @BeforeSuite
+    static void setupClass(){
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @BeforeMethod
+    public void launchBrowser(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @AfterMethod
+    public void closeBrowser(){
+        driver.quit();
+    }
 
     public static void navigateToPage(){
         driver.get(url);
